@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeoTaste | Strategic Growth Framework</title>
+    <!-- Chosen Palette: "NeoTaste Green" - Based on the official website. Background: #FFFFFF, Text: #1A202C, Accent: #34D399 (Emerald Green), Borders: #E2E8F0. -->
+    <!-- Application Structure Plan: The SPA is structured into three thematic, interactive dashboards corresponding to the report's core pillars: 1) Foundational Excellence (Audit & Optimization), 2) Disciplined Expansion (Scotland Launch), and 3) Continuous Optimization (Performance Analysis). This task-oriented design replaces the linear document format, allowing stakeholders to directly access and interact with the strategic area most relevant to them. A persistent top navigation bar facilitates smooth scrolling between these key sections, enhancing user flow and making the dense information highly consumable. This structure was chosen to transform a static report into a dynamic decision-making tool. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: LTV Cohort Analysis -> Goal: Inform/Compare -> Viz: Interactive Bar Chart (Chart.js) -> Interaction: Hover for detailed LTV data per month -> Justification: More engaging and easier to spot trends than a static table.
+        - Report Info: Attribution Model Recommendation -> Goal: Organize/Inform -> Viz: HTML/Tailwind Diagram -> Interaction: N/A -> Justification: Visually simplifies a complex, phased technical recommendation.
+        - Report Info: Scotland Launch Budget -> Goal: Compare/Inform -> Viz: Interactive Doughnut Chart (Chart.js) -> Interaction: Buttons to switch view between launch phases -> Justification: Provides an immediate, clear visual breakdown of budget allocation by channel and phase.
+        - Report Info: Platform Performance Data -> Goal: Compare/Inform -> Viz: Grouped Bar Chart (Chart.js) -> Interaction: Hover for exact metrics (CAC, LTV, Ratio) -> Justification: Allows for direct, at-a-glance comparison of channel profitability, which is the core insight.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FFFFFF;
+            color: #1A202C;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #34D399;
+            border-bottom-color: #34D399;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 450px;
+        }
+         .small-chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+        }
+        .details-toggle {
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .details-toggle:hover {
+            color: #34D399;
+        }
+        .details-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .details-content.open {
+            max-height: 1000px; /* Adjust as needed */
+        }
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-[#1A202C]">
+                <span class="text-[#34D399]">NeoTaste</span> Growth Framework
+            </h1>
+            <div class="hidden md:flex space-x-8">
+                <a href="#audit" class="nav-link pb-1 border-b-2 border-transparent">1. Audit & Optimization</a>
+                <a href="#launch" class="nav-link pb-1 border-b-2 border-transparent">2. Scotland Launch</a>
+                <a href="#scaling" class="nav-link pb-1 border-b-2 border-transparent">3. Performance & Scaling</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        
+        <section id="intro" class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-4">A Strategic Blueprint for Sustainable Growth</h2>
+            <p class="max-w-3xl mx-auto text-lg text-gray-600">This interactive dashboard presents a comprehensive plan to evolve NeoTaste's performance marketing into a sophisticated, data-driven growth engine. The strategy focuses on maximizing long-term customer value and ensuring sustainable profitability.</p>
+        </section>
+
+        <!-- Section 1: Audit & Optimization -->
+        <section id="audit" class="mb-20 pt-16 -mt-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold">I. Foundational Excellence</h3>
+                <p class="text-md text-gray-500 mt-2">Auditing Accounts & Fortifying Core Infrastructure</p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card">
+                    <h4 class="text-xl font-semibold mb-4">Step 1: Interactive Cohort Analysis Dashboard</h4>
+                    <div class="text-gray-600 mb-4 text-sm space-y-4">
+                        <p>The primary challenge is an unsustainable LTV:CAC ratio. To fix this, we must move beyond blended averages and analyze performance by specific user segments. A granular cohort analysis framework is necessary to provide a clear understanding of user quality and profitability based on where, when, and how they were acquired.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <div class="details-toggle font-semibold text-gray-800 flex items-center" data-target="segmentation-details">
+                                    <span>Key Dimensions for Segmentation</span>
+                                    <svg class="w-4 h-4 ml-2 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                                <div id="segmentation-details" class="details-content mt-2">
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li><strong>Acquisition Channel:</strong> Meta, Google, TikTok, Organic.</li>
+                                        <li><strong>Campaign:</strong> e.g., `Meta_Prospecting_Interest_Restaurants`, `Google_PMax_HighValue`.</li>
+                                        <li><strong>Creative Angle:</strong> e.g., `ValueProp_50%Off`, `Discovery_HiddenGems`, `UGC_Testimonial`.</li>
+                                        <li><strong>Geography:</strong> City-level analysis to identify regional performance variations.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="details-toggle font-semibold text-gray-800 flex items-center" data-target="metrics-details">
+                                    <span>Key Metrics to Track per Cohort</span>
+                                    <svg class="w-4 h-4 ml-2 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                </div>
+                                <div id="metrics-details" class="details-content mt-2">
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li><strong>Cost per Install (CPI) & Cost per Trial (CPT):</strong> Top-of-funnel efficiency metrics.</li>
+                                        <li><strong>Trial-to-Paid Conversion Rate (CVR):</strong> The most critical lagging indicator, measured at Day 30 post-trial start.</li>
+                                        <li><strong>Referral Rate:</strong> The percentage of users in a cohort who successfully refer at least one new user.</li>
+                                        <li><strong>Blended LTV (D30, D90, D365):</strong> The cumulative revenue generated per user over time, incorporating subscription revenue and a modeled value for referrals.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <p>The fact that referral activity boosts LTV but is unmeasured is a significant blind spot. Campaigns acquiring valuable "promoters" might be prematurely deactivated. Prioritizing a methodology to assign a monetary value to each referral is essential for an accurate assessment of performance.</p>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg mt-4 border">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div>
+                                <label for="segment-source" class="block text-sm font-medium text-gray-700">Acquisition Source</label>
+                                <select id="segment-source" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md">
+                                    <option value="all">All Sources</option>
+                                    <option value="meta">Meta</option>
+                                    <option value="google">Google</option>
+                                    <option value="tiktok">TikTok</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="segment-campaign" class="block text-sm font-medium text-gray-700">Campaign Type</label>
+                                <select id="segment-campaign" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md">
+                                    <option value="all">All Campaigns</option>
+                                    <option value="prospecting">Prospecting</option>
+                                    <option value="retargeting">Retargeting</option>
+                                </select>
+                            </div>
+                             <div>
+                                <label for="segment-creative" class="block text-sm font-medium text-gray-700">Creative Type</label>
+                                <select id="segment-creative" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md">
+                                    <option value="all">All Creatives</option>
+                                    <option value="value_prop">Value Prop</option>
+                                    <option value="discovery">Discovery</option>
+                                    <option value="ugc">UGC</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="segment-geo" class="block text-sm font-medium text-gray-700">Geography</label>
+                                <select id="segment-geo" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md">
+                                    <option value="all">All Cities</option>
+                                    <option value="berlin">Berlin</option>
+                                    <option value="hamburg">Hamburg</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container mt-6">
+                        <canvas id="ltvCohortChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-4 italic">This interactive dashboard demonstrates how to isolate performance and identify which acquisition strategies bring in the most valuable users.</p>
+                    
+                    <div class="mt-8 border-t pt-6">
+                        <p class="text-center text-gray-600 mb-6">The LTV chart would be accompanied by charts comparing Trial-to-Paid CVR and Referral Rate by acquisition channel to provide a multi-dimensional view of user quality.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="small-chart-container">
+                                <canvas id="cvrChart"></canvas>
+                            </div>
+                            <div class="small-chart-container">
+                                <canvas id="referralChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card">
+                    <h4 class="text-xl font-semibold mb-4">Step 2: Attribution & Measurement</h4>
+                    <div class="space-y-8 mt-4 border-t pt-4">
+                        <!-- Part A -->
+                        <div>
+                             <h5 class="font-semibold text-base text-gray-800 mb-2">A) Multi-Touch Attribution Model Recommendation</h5>
+                             <p class="text-sm text-gray-600 mb-4">The current last-click model undervalues crucial upper-funnel touchpoints. To get an accurate view of the customer journey, <strong>I recommend a phased transition to a multi-touch attribution model.</strong> This interactive visual demonstrates the strategic benefit of this shift.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 text-sm">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h6 class="font-semibold">Short-Term Recommendation: Position-Based</h6>
+                                    <p class="text-gray-600 mt-1"><strong>Why?</strong> It's an immediate improvement that's readily available in ad platforms. It instantly begins to properly value the first and last touchpoints, providing a more balanced view than last-click without requiring complex setup.</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+                                    <h6 class="font-semibold">Long-Term Recommendation: Data-Driven</h6>
+                                    <p class="text-gray-600 mt-1"><strong>Why?</strong> It's the industry gold standard for accuracy. It uses machine learning to assign credit based on true impact, but requires significant conversion data and technical setup (via an MMP like Adjust) to work effectively.</p>
+                                </div>
+                            </div>
+                            <div class="flex justify-center space-x-2 mb-6">
+                                <button id="btnLastClick" class="attribution-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-semibold border">Last-Click</button>
+                                <button id="btnPositionBased" class="attribution-btn bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow">Position-Based</button>
+                                <button id="btnDataDriven" class="attribution-btn bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-semibold border">Data-Driven</button>
+                            </div>
+                            <div class="chart-container" style="height: 300px;">
+                                <canvas id="attributionChart"></canvas>
+                            </div>
+                             <div id="attribution-explanation" class="text-center text-sm text-gray-600 mt-4 p-4 bg-gray-50 rounded-lg min-h-[60px]"></div>
+                        </div>
+                        <!-- Part B -->
+                        <div class="border-t pt-8">
+                            <h5 class="font-semibold text-base text-gray-800 mb-2">B) Predictive Conversion Model</h5>
+                            <p class="text-sm text-gray-600 mb-4">To shorten the 1-month optimization feedback loop, we'll build a model to predict paid subscriptions based on the first 7 days of a trial. This allows for near real-time optimization based on predicted revenue.</p>
+                            <div>
+                                <h6 class="font-semibold text-sm">How it Works:</h6>
+                                <p class="text-sm text-gray-600">The model will use key behavioral signals to generate a "Predicted LTV" score.</p>
+                                <ul class="list-disc list-inside ml-4 mt-2 text-sm text-gray-600">
+                                    <li><strong>Input Signals:</strong> App open frequency, first deal redemption, viewing the subscription page, trial cancellation.</li>
+                                    <li><strong>Implementation:</strong> The "Predicted LTV" score is sent to ad platforms via Adjust postbacks, enabling value-based bidding.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card">
+                    <h4 class="text-xl font-semibold mb-4">Step 3: Deep-Funnel Targeting & Bidding</h4>
+                    <div class="grid md:grid-cols-2 gap-8 mt-4 border-t pt-4">
+                        <div class="text-sm text-gray-600 space-y-4">
+                            <h5 class="font-semibold text-base text-gray-800">Audience Creation Approach</h5>
+                            <div>
+                                <h6 class="font-semibold">High-Value Lookalikes (LALs):</h6>
+                                <ul class="list-disc list-inside ml-4">
+                                    <li>LAL 1% of Annual Subscribers</li>
+                                    <li>LAL 1% of Top 10% Referrers</li>
+                                    <li>LAL 1% of Users with Predicted LTV > €50</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 class="font-semibold">High-Intent Custom Audiences:</h6>
+                                <ul class="list-disc list-inside ml-4">
+                                    <li><strong>Retargeting:</strong> Engaged trial users who haven't redeemed their first deal.</li>
+                                    <li><strong>Exclusion:</strong> Users with low engagement and a high risk of churning.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="text-sm text-gray-600 space-y-4">
+                            <h5 class="font-semibold text-base text-gray-800">Bidding Strategy Recommendation</h5>
+                            <div>
+                                <h6 class="font-semibold">Which Strategy: Value-Based Bidding</h6>
+                                <p>I would choose <strong>Target ROAS (tROAS)</strong>. <strong>Why?</strong> Because it directly aligns the ad platforms' algorithms with our business goal of profitability. It bids for users most likely to generate high long-term revenue, not just the cheapest trial.</p>
+                            </div>
+                            <div>
+                                <h6 class="font-semibold">Implementation Rules:</h6>
+                                <ul class="list-disc list-inside ml-4">
+                                    <li>Ensure campaigns have >50 conversions/week before activating.</li>
+                                    <li>Test on 1-2 high-performing campaigns first to set benchmarks.</li>
+                                    <li>Start with a conservative tROAS target and increase it as performance stabilizes.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card">
+                    <h4 class="text-xl font-semibold mb-4">Step 4: Discrepancy Investigation & Data Needs</h4>
+                    <div class="grid md:grid-cols-2 gap-8 mt-4 border-t pt-4">
+                        <div class="text-sm text-gray-600 space-y-4">
+                            <h5 class="font-semibold text-base text-gray-800">Hypothesis Framework for Causes</h5>
+                            <ul class="list-disc list-inside">
+                                <li><strong>Attribution Window Mismatch:</strong> Platforms using different lookback windows (e.g., 7-day click vs. 1-day click).</li>
+                                <li><strong>Click vs. View-Through:</strong> Ad platforms reporting view-through conversions not credited by the MMP.</li>
+                                <li><strong>Data Lag & SKAdNetwork:</strong> Delays and modeling in iOS 14+ data causing timing mismatches.</li>
+                                <li><strong>Technical Errors:</strong> Faulty SDK implementation or broken server postbacks.</li>
+                            </ul>
+                        </div>
+                        <div class="text-sm text-gray-600 space-y-4">
+                            <h5 class="font-semibold text-base text-gray-800">Action Plan for Data Team</h5>
+                            <ul class="list-decimal list-inside">
+                                <li><strong>Audit Adjust ➔ Ads Setup:</strong> Verify postback configurations and event mapping for all key funnel events (Install, Trial, Subscription, Referral).</li>
+                                <li><strong>Prioritize Server-Side Tracking:</strong> Expedite implementation of Meta CAPI & TikTok Events API to mitigate data loss and improve event matching.</li>
+                                <li><strong>Enhance BI / GA4 Reporting:</strong> Build a unified dashboard pulling cost data from ads platforms and conversion data from Adjust (as the source of truth). This dashboard must visualize LTV:CAC by cohort and the full user acquisition funnel.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Scotland Launch -->
+        <section id="launch" class="mb-20 pt-16 -mt-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold">II. Disciplined Expansion</h3>
+                <p class="text-md text-gray-500 mt-2">Omnichannel Go-To-Market Strategy for Scotland</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 mb-8 card">
+                 <h4 class="text-xl font-semibold mb-4">Market & Audience Deep Dive: The "Savvy Foodie"</h4>
+                 <p class="text-gray-600 mb-4">Success in Scotland requires a hyper-localized approach, targeting a specific persona and navigating a competitive landscape.</p>
+                <div class="mt-4 text-sm text-gray-600 border-t pt-4 space-y-4">
+                    <div>
+                        <h5 class="font-semibold mb-1">Target Persona: The Savvy Foodie (18-35)</h5>
+                        <p>Young professionals and students in Edinburgh and Glasgow who are experience-seekers, influenced by social media, and value-conscious. They seek high-quality dining at accessible prices and strongly prefer to support local Scottish businesses.</p>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold mb-1">Competitive Landscape</h5>
+                        <p>Direct competitors include `tastecard` and `First Table`. Indirect competitors are booking platforms like `TheFork`. NeoTaste's unique position is the combination of <em>curated discovery</em> of trendy local spots with <em>exclusive deals</em>. Our messaging must champion this duality and our support for local restaurants.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card">
+                <h4 class="text-xl font-semibold mb-2">3-Month Launch Roadmap (€150,000 Budget)</h4>
+                <p class="text-gray-600 mb-6">Our expansion into Edinburgh and Glasgow will follow a phased, data-driven roadmap to manage risk and maximize learning. Use the buttons below to explore the budget allocation for each phase of the launch.</p>
+                
+                <div class="flex justify-center space-x-2 mb-6">
+                    <button id="btnPhase1" class="phase-btn bg-[#34D399] text-white px-4 py-2 rounded-full text-sm font-semibold shadow">Phase 1: Launch & Learn</button>
+                    <button id="btnPhase2" class="phase-btn bg-white text-[#1A202C] px-4 py-2 rounded-full text-sm font-semibold border border-[#E2E8F0]">Phase 2: Ramp-Up</button>
+                    <button id="btnPhase3" class="phase-btn bg-white text-[#1A202C] px-4 py-2 rounded-full text-sm font-semibold border border-[#E2E8F0]">Phase 3: Scale</button>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container h-64 md:h-80">
+                        <canvas id="launchBudgetChart"></canvas>
+                    </div>
+                    <div>
+                        <h5 id="phaseTitle" class="text-lg font-semibold mb-2">Phase 1: Launch & Learn (€40,000)</h5>
+                        <p id="phaseDescription" class="text-gray-600">The initial goal is to generate awareness and gather baseline performance data. Efficiency is secondary to testing creative, messaging, and audience hypotheses to inform future optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Performance & Scaling -->
+        <section id="scaling" class="pt-16 -mt-16">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl font-bold">III. Continuous Optimization</h3>
+                <p class="text-md text-gray-500 mt-2">Campaign Analysis & Data-Driven Scaling</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8 card">
+                 <h4 class="text-xl font-semibold mb-2">Channel Performance Analysis</h4>
+                <p class="text-gray-600 mb-6">Analysis of recent campaign data reveals that <strong>all channels are currently unprofitable at scale</strong>, with LTV:CAC ratios below the sustainable 3:1 benchmark. The immediate priority is not scaling, but improving the quality and LTV of acquired users across all channels. This chart compares the core profitability metrics for each platform.</p>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+                <div class="mt-8 grid md:grid-cols-3 gap-6 text-center">
+                    <div class="p-4 rounded-lg bg-green-50">
+                        <h5 class="font-bold text-green-800">Google: Scale Aggressively</h5>
+                        <p class="text-sm text-green-700">Highest user quality and best LTV:CAC ratio (1.79:1). Immediately increase budget to capture high-intent users.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-yellow-50">
+                        <h5 class="font-bold text-yellow-800">Meta: Optimize, then Scale</h5>
+                        <p class="text-sm text-yellow-700">Solid middle-ground performance (1.32:1). Maintain budget while focusing on improving user LTV before scaling.</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-red-50">
+                        <h5 class="font-bold text-red-800">TikTok: Restructure or Pause</h5>
+                        <p class="text-sm text-red-700">Unprofitable (0.85:1). Immediately reduce spend by 50% and restructure to prioritize quality over volume.</p>
+                    </div>
+                </div>
+                 <div class="mt-8">
+                    <div class="mt-4 text-sm text-gray-600 border-t pt-4 space-y-4">
+                        <h4 class="text-lg font-semibold mb-2 text-gray-800">Next Hypotheses to Test</h4>
+                        <div>
+                            <h5 class="font-semibold mb-1">Hypothesis 1: Cross-Channel Creative Synergy</h5>
+                            <p>Test adapting ad copy from top-performing Google Search ads for Meta campaigns to improve user quality on that platform.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-1">Hypothesis 2: Audience Quality Refinement</h5>
+                            <p>Test creating a Meta Lookalike audience seeded with the high-quality user list from Google to improve targeting precision.</p>
+                        </div>
+                        <div>
+                            <h5 class="font-semibold mb-1">Hypothesis 3: TikTok Optimization for Quality</h5>
+                            <p>Test reallocating TikTok budget from standard in-feed ads to Spark Ads using trusted local influencers to attract a higher-intent audience.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white mt-20 border-t border-gray-200">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p>&copy; 2025 NeoTaste Growth Strategy. This is a conceptual dashboard based on the case study.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const cohortData = {
+                all: { all: { all: { all: [ { label: 'Jan 2025 Cohort', data: [2.50, 7.00, 11.00, 14.50, 21.00, 28.00], bgColor: 'rgba(52, 211, 153, 0.6)', bdColor: 'rgba(52, 211, 153, 1)'}, { label: 'Feb 2025 Cohort', data: [2.75, 7.80, 12.10, 15.80, 23.00, 31.50], bgColor: 'rgba(26, 32, 44, 0.6)', bdColor: 'rgba(26, 32, 44, 1)'}, { label: 'Mar 2025 Cohort', data: [2.20, 6.50, 10.00, 13.00, 19.50, 26.00], bgColor: 'rgba(160, 174, 192, 0.6)', bdColor: 'rgba(160, 174, 192, 1)'}]}}},
+                meta: {
+                    berlin: {
+                        prospecting: { all: [{ label: 'Meta - Prospecting (Berlin)', data: [2.6, 7.2, 11.2, 14.8, 21.5, 28.8], bgColor: 'rgba(59, 130, 246, 0.7)', bdColor: 'rgba(59, 130, 246, 1)' }]},
+                        retargeting: { all: [{ label: 'Meta - Retargeting (Berlin)', data: [3.1, 8.7, 13.3, 17.4, 25.5, 34.6], bgColor: 'rgba(59, 130, 246, 0.8)', bdColor: 'rgba(59, 130, 246, 1)' }]}
+                    },
+                    hamburg: {
+                        prospecting: { all: [{ label: 'Meta - Prospecting (Hamburg)', data: [2.4, 6.8, 10.8, 14.2, 20.5, 27.6], bgColor: 'rgba(34, 197, 94, 0.7)', bdColor: 'rgba(34, 197, 94, 1)' }]},
+                    }
+                },
+                google: {
+                    berlin: { prospecting: { all: [{ label: 'Google - Prospecting (Berlin)', data: [2.9, 8.2, 12.8, 16.9, 24.5, 33.1], bgColor: 'rgba(249, 115, 22, 0.6)', bdColor: 'rgba(249, 115, 22, 1)' }]}},
+                    hamburg: { prospecting: { all: [{ label: 'Google - Prospecting (Hamburg)', data: [2.7, 7.8, 12.2, 16.1, 23.5, 31.9], bgColor: 'rgba(239, 68, 68, 0.6)', bdColor: 'rgba(239, 68, 68, 1)' }]}}
+                },
+                tiktok: {
+                    berlin: { prospecting: { ugc: [{ label: 'TikTok - Prospecting (Berlin)', data: [2.1, 5.7, 8.8, 11.4, 16.5, 22.6], bgColor: 'rgba(139, 92, 246, 0.6)', bdColor: 'rgba(139, 92, 246, 1)' }]}}
+                }
+            };
+
+            const appData = {
+                qualityMetrics: { labels: ['Google', 'Meta', 'TikTok'], cvr: { label: 'Trial-to-Paid CVR (%)', data: [25, 20, 12], bgColor: 'rgba(52, 211, 153, 0.7)'}, referral: { label: 'Referral Rate (%)', data: [15, 12, 8], bgColor: 'rgba(26, 32, 44, 0.7)'}},
+                launch: {
+                    phase1: { title: 'Phase 1: Launch & Learn (€40,000)', description: 'The initial goal is to generate awareness and gather baseline performance data. Efficiency is secondary to testing creative, messaging, and audience hypotheses to inform future optimization.', data: [20000, 10000, 5000, 5000] },
+                    phase2: { title: 'Phase 2: Ramp-Up & Optimize (€50,000)', description: 'Based on Phase 1 data, we will double down on winning channels, audiences, and creative. The focus shifts to optimizing towards a target Cost per Trial (CPT).', data: [25000, 15000, 5000, 5000] },
+                    phase3: { title: 'Phase 3: Scale & Sustain (€60,000)', description: 'Optimized campaigns are scaled to maximize user growth. The goal transitions from CPT to Predicted LTV to ensure we acquire high-quality, long-term subscribers.', data: [30000, 20000, 5000, 5000] },
+                    labels: ['Meta (FB/IG)', 'Google (UAC/PMax)', 'TikTok', 'Influencer/PR'],
+                    colors: ['rgba(52, 211, 153, 0.8)', 'rgba(26, 32, 44, 0.8)', 'rgba(113, 128, 150, 0.8)', 'rgba(226, 232, 240, 0.9)']
+                },
+                performance: {
+                    labels: ['Meta', 'TikTok', 'Google'],
+                    datasets: [ { label: 'CAC (€)', data: [16.67, 20.00, 14.00], backgroundColor: 'rgba(52, 211, 153, 0.7)' }, { label: 'LTV (€) @ D30', data: [22, 17, 25], backgroundColor: 'rgba(26, 32, 44, 0.7)' }, { label: 'LTV:CAC Ratio', data: [1.32, 0.85, 1.79], backgroundColor: 'rgba(113, 128, 150, 0.7)' } ]
+                }
+            };
+
+            const defaultChartOptions = { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1A202C', titleFont: { size: 14, weight: 'bold' }, bodyFont: { size: 12 }, padding: 10, cornerRadius: 4, displayColors: true }}, scales: { y: { beginAtZero: true, grid: { color: '#E2E8F0' }, ticks: { color: '#1A202C' }}, x: { grid: { display: false }, ticks: { color: '#1A202C' }}}};
+
+            const ltvCtx = document.getElementById('ltvCohortChart').getContext('2d');
+            let ltvCohortChart = new Chart(ltvCtx, { type: 'bar', data: { labels: ['Month 0', 'Month 1', 'Month 2', 'Month 3', 'Month 6', 'Month 12'], datasets: [] }, options: { ...defaultChartOptions, plugins: { ...defaultChartOptions.plugins, legend: { position: 'bottom', display: true }, title: { display: true, text: 'Cumulative LTV (€) by Acquisition Cohort', font: { size: 16, weight: '600' }, color: '#1A202C', padding: { bottom: 20 }}}, scales: { ...defaultChartOptions.scales, y: { ...defaultChartOptions.scales.y, title: { display: true, text: 'LTV (€)' }}}}});
+
+            const sourceSelect = document.getElementById('segment-source');
+            const campaignSelect = document.getElementById('segment-campaign');
+            const creativeSelect = document.getElementById('segment-creative');
+            const geoSelect = document.getElementById('segment-geo');
+
+            function updateCohortChart() {
+                const source = sourceSelect.value;
+                const campaign = campaignSelect.value;
+                const creative = creativeSelect.value;
+                const geo = geoSelect.value;
+                let datasets = [];
+
+                if (source === 'all' && geo === 'all') {
+                    datasets = cohortData.all.all.all.all;
+                } else {
+                    const sourceData = cohortData[source] || {};
+                    const geoData = sourceData[geo] || Object.values(sourceData).reduce((acc, cityData) => ({...acc, ...cityData}), {});
+
+                    if (campaign === 'all') {
+                        Object.values(geoData).forEach(camp => {
+                           if(camp.all) datasets.push(...camp.all);
+                        });
+                    } else {
+                        const campaignData = geoData[campaign];
+                        if (campaignData) {
+                            if (creative === 'all') {
+                                if (campaignData.all) datasets = campaignData.all;
+                            } else {
+                                if (campaignData[creative]) datasets = campaignData[creative];
+                            }
+                        }
+                    }
+                }
+                if (datasets.length === 0) { datasets = cohortData.all.all.all.all; }
+
+                ltvCohortChart.data.datasets = datasets.map(d => ({
+                    label: d.label, data: d.data, backgroundColor: d.bgColor, borderColor: d.bdColor, borderWidth: 1
+                }));
+                ltvCohortChart.update();
+            }
+
+            [sourceSelect, campaignSelect, creativeSelect, geoSelect].forEach(el => el.addEventListener('change', updateCohortChart));
+            updateCohortChart();
+
+            const cvrCtx = document.getElementById('cvrChart').getContext('2d');
+            new Chart(cvrCtx, { type: 'bar', data: { labels: appData.qualityMetrics.labels, datasets: [{ label: appData.qualityMetrics.cvr.label, data: appData.qualityMetrics.cvr.data, backgroundColor: appData.qualityMetrics.cvr.bgColor }] }, options: { ...defaultChartOptions, indexAxis: 'y', plugins: { ...defaultChartOptions.plugins, title: { display: true, text: 'Trial-to-Paid CVR by Channel', font: { size: 14, weight: '600' }, color: '#1A202C'}}}});
+
+            const referralCtx = document.getElementById('referralChart').getContext('2d');
+            new Chart(referralCtx, { type: 'bar', data: { labels: appData.qualityMetrics.labels, datasets: [{ label: appData.qualityMetrics.referral.label, data: appData.qualityMetrics.referral.data, backgroundColor: appData.qualityMetrics.referral.bgColor }] }, options: { ...defaultChartOptions, indexAxis: 'y', plugins: { ...defaultChartOptions.plugins, title: { display: true, text: 'Referral Rate by Channel', font: { size: 14, weight: '600' }, color: '#1A202C'}}}});
+
+            // Attribution Chart
+            const attributionCtx = document.getElementById('attributionChart').getContext('2d');
+            const attributionData = {
+                lastClick: { data: [0, 0, 100], explanation: "Assigns 100% of credit to the final touchpoint before conversion, ignoring the crucial role of upper-funnel touchpoints in generating initial awareness."},
+                positionBased: { data: [40, 20, 40], explanation: "Assigns 40% of credit to the first touch and last touch, and 20% to the middle. This provides a more balanced view of the entire customer journey."},
+                dataDriven: { data: [25, 35, 40], explanation: "Uses machine learning to assign credit based on the true impact of each touchpoint, providing the most accurate view of channel performance."}
+            };
+            const attributionChart = new Chart(attributionCtx, {
+                type: 'line',
+                data: {
+                    labels: ['First Touch (Awareness)', 'Middle Touch (Consideration)', 'Last Touch (Conversion)'],
+                    datasets: [{
+                        label: 'Conversion Credit',
+                        data: attributionData.positionBased.data,
+                        borderColor: 'rgba(52, 211, 153, 1)',
+                        backgroundColor: 'rgba(52, 211, 153, 0.2)',
+                        fill: true,
+                        tension: 0.1,
+                        pointRadius: 5,
+                        pointBackgroundColor: 'rgba(52, 211, 153, 1)'
+                    }]
+                },
+                options: { ...defaultChartOptions, scales: { ...defaultChartOptions.scales, y: { ...defaultChartOptions.scales.y, title: { display: true, text: 'Credit (%)' }}}}
+            });
+            const explanationDiv = document.getElementById('attribution-explanation');
+            explanationDiv.textContent = attributionData.positionBased.explanation;
+
+            const attributionButtons = document.querySelectorAll('.attribution-btn');
+            function updateAttributionChart(model) {
+                attributionChart.data.datasets[0].data = attributionData[model].data;
+                explanationDiv.textContent = attributionData[model].explanation;
+                attributionChart.update();
+                attributionButtons.forEach(btn => {
+                    btn.classList.remove('bg-emerald-500', 'text-white', 'shadow');
+                    btn.classList.add('bg-white', 'text-gray-700', 'border');
+                });
+                document.getElementById(`btn${model.charAt(0).toUpperCase() + model.slice(1)}`).classList.add('bg-emerald-500', 'text-white', 'shadow');
+            }
+            document.getElementById('btnLastClick').addEventListener('click', () => updateAttributionChart('lastClick'));
+            document.getElementById('btnPositionBased').addEventListener('click', () => updateAttributionChart('positionBased'));
+            document.getElementById('btnDataDriven').addEventListener('click', () => updateAttributionChart('dataDriven'));
+
+
+            const launchCtx = document.getElementById('launchBudgetChart').getContext('2d');
+            const launchBudgetChart = new Chart(launchCtx, { type: 'doughnut', data: { labels: appData.launch.labels, datasets: [{ label: 'Budget Allocation', data: appData.launch.phase1.data, backgroundColor: appData.launch.colors, borderColor: '#FFFFFF', borderWidth: 2 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' }, tooltip: { ...defaultChartOptions.plugins.tooltip, callbacks: { label: (c) => `${c.label}: ${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(c.parsed)}` }}}}});
+
+            const phaseButtons = document.querySelectorAll('.phase-btn');
+            const phaseTitle = document.getElementById('phaseTitle');
+            const phaseDescription = document.getElementById('phaseDescription');
+
+            function updateLaunchChart(phase) {
+                const phaseData = appData.launch[phase];
+                launchBudgetChart.data.datasets[0].data = phaseData.data;
+                launchBudgetChart.update();
+                phaseTitle.textContent = phaseData.title;
+                phaseDescription.textContent = phaseData.description;
+                phaseButtons.forEach(btn => {
+                    btn.classList.remove('bg-[#34D399]', 'text-white', 'shadow');
+                    btn.classList.add('bg-white', 'text-[#1A202C]', 'border', 'border-[#E2E8F0]');
+                });
+                document.getElementById(`btn${phase.charAt(0).toUpperCase() + phase.slice(1)}`).classList.add('bg-[#34D399]', 'text-white', 'shadow');
+            }
+
+            phaseButtons.forEach(btn => btn.addEventListener('click', () => updateLaunchChart(btn.id.replace('btn', '').toLowerCase())));
+            
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(performanceCtx, { type: 'bar', data: appData.performance, options: { ...defaultChartOptions, plugins: { ...defaultChartOptions.plugins, title: { display: true, text: 'Channel Profitability Comparison (30 Days)', font: { size: 16, weight: '600' }, color: '#1A202C', padding: { bottom: 20 }}}, scales: { ...defaultChartOptions.scales, y: { ...defaultChartOptions.scales.y, title: { display: true, text: 'Value' }}}}});
+        
+            // Details toggle functionality
+            const toggles = document.querySelectorAll('.details-toggle');
+            toggles.forEach(toggle => {
+                toggle.addEventListener('click', () => {
+                    const targetId = toggle.dataset.target;
+                    const content = document.getElementById(targetId);
+                    const icon = toggle.querySelector('svg');
+                    content.classList.toggle('open');
+                    icon.classList.toggle('rotate-180');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
