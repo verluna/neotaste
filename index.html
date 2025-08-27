@@ -624,7 +624,8 @@
                     <label for="ltv-sensitivity" class="block text-sm font-medium text-gray-700">LTV Sensitivity Analysis: <span id="ltv-sensitivity-value" class="font-bold text-emerald-600">0%</span></label>
                     <input id="ltv-sensitivity" type="range" min="-20" max="20" value="0" step="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus-ring">
                 </div>
-                <!-- NEW: Mini P&L Tables -->
+                
+                <!-- Mini P&L Tables -->
                 <div class="mt-8 grid md:grid-cols-3 gap-6">
                     <div class="p-4 rounded-lg bg-blue-50 border border-blue-200" data-channel="google">
                         <h5 class="font-bold text-blue-800 text-center mb-2">Google</h5>
@@ -664,6 +665,34 @@
                                 <tr><td class="py-1">Payback (Days):</td><td class="text-right font-medium">>30</td></tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- NEW: Concise Case Study Answer (Task 3) - MOVED AND EDITED -->
+                <div class="mt-12 border-t pt-8">
+                    <div class="grid md:grid-cols-3 gap-6 text-sm">
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <h5 class="font-bold text-gray-800 mb-2">Insights / Hypotheses from Data</h5>
+                            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                                <li>All channels underperform the 3:1 LTV:CAC benchmark; Google is closest to sustainability.</li>
+                                <li>Meta shows high spend but weak LTV:CAC, TikTok has lowest efficiency.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <h5 class="font-bold text-gray-800 mb-2">Which Channel(s) to Scale</h5>
+                            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                                <li>Scale Google cautiously (better payback, closer to target ratio).</li>
+                                <li>Hold Meta at current levels until LTV improves, pause TikTok until fundamentals are proven.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <h5 class="font-bold text-gray-800 mb-2">Hypotheses to Test Next to Lower CAC</h5>
+                            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                                <li>Creative testing (UGC vs polished ads) to raise CTR and reduce trial cost.</li>
+                                <li>Broader targeting vs. interest clusters (OR lookalikes from retainers/high LTV userbase) to find cheaper reach on Meta.</li>
+                                <li>Incrementality tests on branded search to reallocate non-incremental spend.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1093,9 +1122,11 @@
             UI.closeDrawerBtn.addEventListener('click', closeDrawer);
             UI.drawerOverlay.addEventListener('click', closeDrawer);
 
+            // NEW: CSV Export reflects filters
             UI.exportCohortBtn.addEventListener('click', () => {
                 const dataToExport = AppState.currentFilteredData;
                 if (dataToExport.length === 0) {
+                    // Maybe show a small message instead of an empty file
                     alert("No data to export for the current filter selection.");
                     return;
                 }
